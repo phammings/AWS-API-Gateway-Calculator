@@ -424,3 +424,122 @@ def test_cpu_throughput():
 # Test Bandwidth Utilization
 def test_bandwidth_utilization():
     assert bandwidth_utilization(100, 50) == 50.0
+
+def test_sqrt():
+    assert sqrt(4) == 2
+    assert sqrt(9) == 3
+    assert sqrt(0) == 0
+    with pytest.raises(ValueError):
+        sqrt(-1)
+
+def test_pythagorean():
+    assert pythagorean(3, 4) == 5
+    assert pythagorean(5, 12) == 13
+
+def test_exponential():
+    assert exponential(2, 3) == 8
+    assert exponential(5, 0) == 1
+    assert exponential(10, -1) == 0.1
+
+def test_log_base_n():
+    assert log_base_n(8, 2) == 3
+    assert log_base_n(100, 10) == 2
+    with pytest.raises(ValueError):
+        log_base_n(-1, 10)
+
+def test_degree_to_radian():
+    assert degree_to_radian(180) == math.pi
+    assert degree_to_radian(90) == math.pi / 2
+
+def test_radian_to_degree():
+    assert radian_to_degree(math.pi) == 180
+    assert radian_to_degree(math.pi / 2) == 90
+
+def test_volume_cone():
+    assert volume_cone(3, 5) == (1/3) * math.pi * 3**2 * 5
+
+def test_surface_area_sphere():
+    assert surface_area_sphere(3) == 4 * math.pi * 3**2
+
+def test_area_rectangle():
+    assert area_rectangle(5, 10) == 50
+
+def test_perimeter_rectangle():
+    assert perimeter_rectangle(5, 10) == 30
+
+def test_area_triangle():
+    assert area_triangle(10, 5) == 25
+
+def test_volume_cylinder():
+    assert volume_cylinder(3, 5) == math.pi * 3**2 * 5
+
+def test_perimeter_circle():
+    assert perimeter_circle(4) == 2 * math.pi * 4
+
+def test_harmonic_mean():
+    assert harmonic_mean([1, 4, 4]) == 2
+    with pytest.raises(ValueError):
+        harmonic_mean([])
+
+def test_arithmetic_mean():
+    assert arithmetic_mean([1, 2, 3, 4, 5]) == 3
+    with pytest.raises(ValueError):
+        arithmetic_mean([])
+
+def test_geometric_mean():
+    assert geometric_mean([1, 3, 9]) == 3
+    with pytest.raises(ValueError):
+        geometric_mean([])
+
+def test_variance():
+    assert variance([1, 2, 3, 4, 5]) == 2
+    with pytest.raises(ValueError):
+        variance([])
+
+def test_standard_deviation():
+    assert standard_deviation([1, 2, 3, 4, 5]) == math.sqrt(2)
+
+def test_exp():
+    assert exp(1) == math.e
+
+def test_log10():
+    assert log10(100) == 2
+    with pytest.raises(ValueError):
+        log10(-1)
+
+def test_sinh_degrees():
+    assert sinh_degrees(0) == 0
+
+def test_cosh_degrees():
+    assert cosh_degrees(0) == 1
+
+def test_tanh_degrees():
+    assert tanh_degrees(0) == 0
+
+def test_speed():
+    assert speed(100, 2) == 50
+    with pytest.raises(ValueError):
+        speed(100, 0)
+
+def test_force():
+    assert force(10, 5) == 50
+
+def test_energy():
+    assert energy(2, 3) == 9
+
+def test_power_energy():
+    assert power_energy(100, 2) == 50
+    with pytest.raises(ValueError):
+        power_energy(100, 0)
+
+def test_energy_efficiency():
+    assert energy_efficiency(80, 100) == 80
+    with pytest.raises(ValueError):
+        energy_efficiency(100, 0)
+
+def test_time_travel_probability():
+    assert time_travel_probability(25, 299792459) == "Time Travel Possible"
+    assert 0 <= time_travel_probability(25, 100) <= 1
+
+def test_quantum_state_collapse():
+    assert isinstance(quantum_state_collapse(0.5), bool)
