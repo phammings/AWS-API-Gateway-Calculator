@@ -289,28 +289,6 @@ def loan_payment(principal, rate, time):
     """Calculates the payment for a loan"""
     return principal * (rate * (1 + rate)**time) / ((1 + rate)**time - 1)
 
-# Physics and Engineering Functions
-
-def speed(distance, time):
-    """Calculates speed given distance and time"""
-    if time == 0:
-        raise ValueError("Time cannot be zero")
-    return distance / time
-
-def force(mass, acceleration):
-    """Calculates force given mass and acceleration"""
-    return mass * acceleration
-
-def energy(mass, velocity):
-    """Calculates kinetic energy given mass and velocity"""
-    return 0.5 * mass * velocity**2
-
-def power_energy(energy, time):
-    """Calculates power from energy and time"""
-    if time == 0:
-        raise ValueError("Time cannot be zero")
-    return energy / time
-
 # Environmental Functions
 
 def carbon_footprint(distance, fuel_efficiency, fuel_type="gasoline"):
