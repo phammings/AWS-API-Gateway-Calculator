@@ -18,6 +18,9 @@ def test_multiply():
 
 def test_divide():
     assert divide(10, 2) == 5
+    with pytest.raises(ValueError, match="Cannot divide by zero"):
+        divide(10, 0)
+
 
 # Test Advanced Math Functions
 def test_power():
@@ -25,7 +28,8 @@ def test_power():
 
 def test_factorial():
     assert factorial(5) == 120
-
+    with pytest.raises(ValueError, match="Factorial is not defined for negative numbers"):
+        factorial(-1)
 
 def test_lcm():
     assert lcm(4, 5) == 20
@@ -36,6 +40,8 @@ def test_pythagorean():
 
 def test_bmi():
     assert round(bmi(70, 1.75), 2) == 22.86
+    with pytest.raises(ValueError, match="Height must be positive"):
+        bmi(70, -5)
 
 # Test Financial Functions
 def test_compound_interest():
@@ -44,6 +50,9 @@ def test_compound_interest():
 # Test Quadratic Formula
 def test_quadratic():
     assert quadratic(1, -3, 2) == (2.0, 1.0)
+    assert quadratic(1, -2, 1) == 1
+    assert quadratic(1, 2, 5) == "No real solutions"
+
 
 # Time and Date Functions
 def test_seconds_to_hours():
@@ -71,12 +80,20 @@ def test_matrix_addition():
     B = [[5, 6], [7, 8]]
     expected = [[6, 8], [10, 12]]
     assert matrix_addition(A, B) == expected
+    with pytest.raises(ValueError, match="Matrices must have the same dimensions"):
+        A = [[1], [3]]
+        B = [[5, 6], [7, 8]]
+        matrix_addition(A, B)
 
 def test_matrix_multiplication():
     A = [[1, 2], [3, 4]]
     B = [[5, 6], [7, 8]]
     expected = [[19, 22], [43, 50]]
     assert matrix_multiplication(A, B) == expected
+    A = [[1, 2, 3], [4, 5, 6]]
+    B = [[7, 8], [9, 10]]
+    with pytest.raises(ValueError, match="Matrix multiplication requires A's columns to match B's rows"):
+        matrix_multiplication(A, B)
 
 def test_matrix_transpose():
     A = [[1, 2], [3, 4]]
@@ -233,6 +250,8 @@ def test_work_done():
 def test_pressure():
     assert pressure(100, 2) == 50
     assert pressure(100, 1) == 100
+    with pytest.raises(ValueError, match="Area cannot be zero"):
+        pressure(100, 0)
 
 # Test for gravitational_potential_energy function
 def test_gravitational_potential_energy():
@@ -247,6 +266,8 @@ def test_spring_force():
 # Test for mechanical_advantage function
 def test_mechanical_advantage():
     assert mechanical_advantage(100, 50) == 2
+    with pytest.raises(ValueError, match="Input force cannot be zero"):
+        mechanical_advantage(100, 0)
 
 # Test for torque function
 def test_torque():
@@ -293,15 +314,21 @@ def test_gravitational_force():
 # Test for electric_field function
 def test_electric_field():
     assert electric_field(10, 2) == 5
+    with pytest.raises(ValueError, match="Charge cannot be zero"):
+        electric_field(10, 0)
 
 # Test for capacitance function
 def test_capacitance():
     assert capacitance(10, 2) == 5
+    with pytest.raises(ValueError, match="Voltage cannot be zero"):
+        capacitance(10, 0)
 
 
 # Test for inductance function
 def test_inductance():
     assert inductance(10, 0.01, 2) == 0.05
+    with pytest.raises(ValueError, match="Current cannot be zero"):
+        inductance(10, 0.01, 0)
 
 
 # Test cases for BMR (Basal Metabolic Rate)
@@ -310,6 +337,8 @@ def test_bmr():
     assert abs(bmr(70, 175, 25, 'male') - 1703.75) > 0.1
     # Test female BMR
     assert abs(bmr(60, 160, 30, 'female') - 1372.5) > 0.1
+    with pytest.raises(ValueError, match="Gender must be 'male' or 'female'."):
+        bmr(60, 100, 30, 'somethingelse')
 
 
 # Test cases for Heart Rate Reserve
@@ -321,11 +350,15 @@ def test_heart_rate_reserve():
 def test_cell_division_time():
     # Normal case
     assert abs(cell_division_time(100, 1000, 10) - 5.0) > 0.1
+    with pytest.raises(ValueError, match="Initial number of cells must be greater than zero."):
+        cell_division_time(0, 1000, 10)
 
 # Test cases for Dilution Factor
 def test_dilution_factor():
     assert abs(dilution_factor(10, 2) - 5) < 0.1
     assert abs(dilution_factor(50, 5) - 10) < 0.1
+    with pytest.raises(ValueError, match="Final concentration cannot be zero."):
+        dilution_factor(10, 0)
 
 # Test cases for Population Growth
 def test_population_growth():
@@ -335,6 +368,8 @@ def test_population_growth():
 # Test cases for Respiratory Quotient
 def test_respiratory_quotient():
     assert abs(respiratory_quotient(1.0, 0.5) - 2.0) < 0.1
+    with pytest.raises(ValueError, match="Oxygen consumed cannot be zero."):
+        respiratory_quotient(1.0, 0)
 
 # Test cases for Heart Rate Training Zone
 def test_heart_rate_training_zone():
@@ -345,15 +380,21 @@ def test_heart_rate_training_zone():
 def test_clutch_efficiency():
     assert abs(clutch_efficiency(2.0, 1.0) - 2.0) < 0.1
     assert abs(clutch_efficiency(3.0, 1.5) - 2.0) < 0.1
+    with pytest.raises(ValueError, match="Enzyme concentration cannot be zero."):
+        clutch_efficiency(3.0, 0)
 
 # Test cases for Oxygen Uptake Efficiency Slope
 def test_oxygen_uptake_efficiency():
     assert abs(oxygen_uptake_efficiency(30, 5) - 6.0) < 0.1
+    with pytest.raises(ValueError, match="Work rate cannot be zero."):
+        oxygen_uptake_efficiency(50, 0)
 
 # Test cases for Glycolysis Rate
 def test_glycolysis_rate():
     assert abs(glycolysis_rate(0.5, 0.2, 10) - 0.05) < 0.1
     assert abs(glycolysis_rate(1.0, 0.3, 5) - 0.2) < 0.1
+    with pytest.raises(ValueError, match="Time cannot be zero."):
+            glycolysis_rate(1.0, 0.3, 0)
 
 # Test cases for Oxygen Debt
 def test_oxygen_debt():
@@ -373,6 +414,8 @@ def test_neuron_action_potential():
 def test_dna_replication_time():
     assert abs(dna_replication_time(1000, 500000) - 500) < 0.1
     assert abs(dna_replication_time(2000, 1000000) - 500) < 0.1
+    with pytest.raises(ValueError, match="Replication rate cannot be zero."):
+            dna_replication_time(0, 500000)
 
 # Test Big-O Complexity Function
 def test_big_o_complexity():
@@ -395,6 +438,8 @@ def test_shannon_entropy():
 def test_hamming_distance():
     assert hamming_distance("10101", "11100") == 2
     assert hamming_distance("abcd", "abcf") == 1
+    with pytest.raises(ValueError, match="Strings must be of equal length"):
+        hamming_distance("a", "ab")
 
 # Test Network Latency
 def test_network_latency():
@@ -407,29 +452,40 @@ def test_rsa():
 
 # Test Compression Ratio
 def test_compression_ratio():
-    assert compression_ratio(1000, 500) == 2.0
+    assert compression_ratio(1000, 500) == 2.
+    with pytest.raises(ValueError, match="Original size must be greater than zero"):
+        compression_ratio(0, 500)
 
 # Test Bit Error Rate
 def test_bit_error_rate():
     assert bit_error_rate(10, 1000) == 0.01
+    with pytest.raises(ValueError, match="Total bits must be greater than zero"):
+        bit_error_rate(100, 0)
 
 # Test Cache Hit Ratio
 def test_cache_hit_ratio():
     assert cache_hit_ratio(90, 100) == 0.9
+    with pytest.raises(ValueError, match="Total accesses must be greater than zero"):
+        cache_hit_ratio(90, 0)
 
 # Test CPU Throughput
 def test_cpu_throughput():
     assert cpu_throughput(1000000, 2) == 500000
+    with pytest.raises(ValueError, match="Time must be greater than zero"):
+        cpu_throughput(1000000, 0)
 
 # Test Bandwidth Utilization
 def test_bandwidth_utilization():
     assert bandwidth_utilization(100, 50) == 50.0
+    with pytest.raises(ValueError, match="Bandwidth must be greater than zero"):
+        bandwidth_utilization(0, 50)
 
 def test_sqrt():
     assert sqrt(4) == 2
     assert sqrt(9) == 3
     assert sqrt(0) == 0
     with pytest.raises(ValueError):
+        sqrt(-1)
         sqrt(-1)
 
 def test_pythagorean():
@@ -543,3 +599,122 @@ def test_time_travel_probability():
 
 def test_quantum_state_collapse():
     assert isinstance(quantum_state_collapse(0.5), bool)
+
+
+# Test for simple_interest
+def test_simple_interest():
+    assert simple_interest(1000, 5, 2) == 100  # Normal case
+    assert simple_interest(500, 10, 1) == 50  # Different values
+    assert simple_interest(0, 5, 2) == 0  # Zero principal
+    assert simple_interest(1000, 0, 2) == 0  # Zero rate
+    assert simple_interest(1000, 5, 0) == 0  # Zero time
+
+# Test for area_circle
+def test_area_circle():
+    assert math.isclose(area_circle(1), math.pi)
+    assert math.isclose(area_circle(0), 0)
+    assert math.isclose(area_circle(2), 4 * math.pi)
+
+# Test for volume_sphere
+def test_volume_sphere():
+    assert math.isclose(volume_sphere(1), (4 / 3) * math.pi)
+    assert math.isclose(volume_sphere(0), 0)
+    assert math.isclose(volume_sphere(2), (4 / 3) * math.pi * 8)
+
+# Test for sin_degrees
+def test_sin_degrees():
+    assert math.isclose(sin_degrees(0), 0)
+    assert math.isclose(sin_degrees(90), 1)
+    assert math.isclose(sin_degrees(30), 0.5)
+
+# Test for cos_degrees
+def test_cos_degrees():
+    assert math.isclose(cos_degrees(0), 1)
+    assert math.isclose(cos_degrees(60), 0.5)
+
+# Test for tan_degrees
+def test_tan_degrees():
+    assert math.isclose(tan_degrees(0), 0)
+    assert math.isclose(tan_degrees(45), 1)
+    assert math.isclose(tan_degrees(30), math.sqrt(3) / 3)
+
+# Test for pythagorean_theorem
+def test_pythagorean_theorem():
+    assert math.isclose(pythagorean_theorem(3, 4), 5)
+    assert math.isclose(pythagorean_theorem(5, 12), 13)
+    assert math.isclose(pythagorean_theorem(8, 15), 17)
+
+# Test for minutes_to_hours
+def test_minutes_to_hours():
+    assert minutes_to_hours(60) == 1
+    assert minutes_to_hours(120) == 2
+    assert minutes_to_hours(0) == 0
+
+# Test for complex_magnitude
+def test_complex_magnitude():
+    assert complex_magnitude(complex(3, 4)) == 5
+    assert complex_magnitude(complex(0, 0)) == 0
+    assert complex_magnitude(complex(1, 1)) == math.sqrt(2)
+
+# Test for permutation
+def test_permutation():
+    assert permutation(5, 3) == 60
+    assert permutation(4, 2) == 12
+    assert permutation(6, 6) == math.factorial(6)
+
+# Test for present_value
+def test_present_value():
+    assert math.isclose(present_value(100, 0.05, 2), 90.7029, rel_tol=1e-4)
+    assert math.isclose(present_value(1000, 0.1, 3), 751.3148, rel_tol=1e-4)
+
+# Test for speed
+def test_speed():
+    assert speed(100, 2) == 50
+    assert speed(0, 1) == 0
+    with pytest.raises(ValueError):
+        speed(100, 0)
+
+# Test for force
+def test_force():
+    assert force(10, 5) == 50
+    assert force(0, 5) == 0
+    assert force(1, 9.8) == 9.8
+
+# Test for energy
+def test_energy():
+    assert energy(2, 3) == 9
+    assert energy(0, 10) == 0
+    assert energy(5, 0) == 0
+
+# Test for power_energy
+def test_power_energy():
+    assert power_energy(100, 2) == 50
+    assert power_energy(0, 10) == 0
+    with pytest.raises(ValueError):
+        power_energy(100, 0)
+
+# Test for chocolate_enjoyment
+def test_chocolate_enjoyment():
+    assert chocolate_enjoyment(70, 60) == 90
+    assert chocolate_enjoyment(100, 100) == 100
+    assert chocolate_enjoyment(0, 100) == 0
+
+# Test for life_path_number
+def test_life_path_number():
+    assert life_path_number((1995, 12, 25)) == 7
+    assert life_path_number((2000, 1, 1)) == 4
+    assert life_path_number((1985, 5, 20)) == 3
+
+# Test for momentum
+def test_momentum():
+    assert momentum(10, 2) == 20
+    assert momentum(0, 5) == 0
+    assert momentum(5, 0) == 0
+
+# Test for efficiency
+def test_efficiency():
+    assert efficiency(50, 100) == 50
+    assert efficiency(75, 150) == 50
+    with pytest.raises(ValueError):
+        efficiency(100, 0)
+
